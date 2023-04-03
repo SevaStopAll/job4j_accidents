@@ -1,7 +1,6 @@
 package ru.job4j.accidents.repository;
 
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -19,6 +18,7 @@ public class AccidentMem implements AccidentRep {
     private final AtomicInteger nextId = new AtomicInteger(0);
     private static final Logger LOG = LoggerFactory.getLogger(AccidentMem.class);
     private final AccidentTypeRep types = new AccidentTypeMem();
+    private final RuleRepository rules = new RuleMem();
 
     private AccidentMem() {
         Accident accident1 = new Accident();
@@ -26,6 +26,7 @@ public class AccidentMem implements AccidentRep {
         accident1.setAddress("Marks, Lenina st.");
         accident1.setText("A drunk man sleeps in his car");
         accident1.setType(types.findById(1).get());
+        accident1.setRules(rules.findAll());
         create(accident1);
     }
 
@@ -41,7 +42,7 @@ public class AccidentMem implements AccidentRep {
         return accidents
                 .computeIfPresent(accident.getId(), (id, oldAccident) ->
                         new Accident(oldAccident.getId(), accident.getName(), accident.getText(),
-                                accident.getAddress(), accident.getType())) != null;
+                                accident.getAddress(), accident.getType(), accident.getRules())) != null;
     }
 
     @Override
