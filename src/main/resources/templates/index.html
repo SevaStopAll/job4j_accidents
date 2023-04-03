@@ -40,10 +40,11 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th><i class="bi bi-square"></i></th>
                     <th scope="col">#</th>
                     <th scope="col">Название</th>
-                    <th scope="col">Дата создания</th>
+                    <th scope="col">Описание</th>
+                    <th scope="col">Адрес</th>
+                    <th scope="col">Тип аварии</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -53,6 +54,7 @@
                            th:href="@{|/editAccident?id=${accident.id}|}"></a>
                     <td th:text="${accident.text}"/>
                     <td th:text="${accident.address}"/>
+                    <td th:text="${accident.type.name}"/>
                 </tr>
                 </tbody>
             </table>

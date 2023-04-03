@@ -2,6 +2,7 @@ package ru.job4j.accidents.repository;
 
 
 import ru.job4j.accidents.model.Accident;
+import ru.job4j.accidents.model.AccidentType;
 
 import java.util.Collection;
 import java.util.List;
@@ -17,5 +18,9 @@ public interface AccidentRep {
     Collection<Accident> findAll();
 
     Optional<Accident> findById(int id);
+
+    List<AccidentType> getTypes();
+
+    AccidentType getType(int id);
 
 }
