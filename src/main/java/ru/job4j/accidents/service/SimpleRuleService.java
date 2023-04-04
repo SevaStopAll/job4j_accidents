@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.job4j.accidents.model.Rule;
 import ru.job4j.accidents.repository.RuleRepository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -29,7 +30,7 @@ public class SimpleRuleService implements RuleService {
     }
 
     @Override
-    public Set<Rule> findAll() {
+    public List<Rule> findAll() {
         return repository.findAll();
     }
 }

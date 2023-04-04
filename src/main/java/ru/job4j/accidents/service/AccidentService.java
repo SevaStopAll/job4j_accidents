@@ -27,7 +27,7 @@ public interface AccidentService {
 
     AccidentType getType(int id);
 
-    Set<Rule> getRules();
+    List<Rule> getRules();
 
     Rule getRule(int id);
 
