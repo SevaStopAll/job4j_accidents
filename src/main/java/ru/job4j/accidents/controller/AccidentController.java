@@ -28,9 +28,7 @@ public class AccidentController {
     @PostMapping("/saveAccident")
     public String save(@ModelAttribute Accident accident, @RequestParam("type.id") int id, HttpServletRequest req) {
         String[] ids = req.getParameterValues("rIds");
-        accident = accidents.setType(accident, id);
-        accident = accidents.setRules(accident, ids);
-        accidents.create(accident);
+        accidents.create(accident, id, ids);
         return "redirect:/index";
     }
 

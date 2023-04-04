@@ -21,10 +21,10 @@ public class SimpleAccidentService implements AccidentService {
     private final AccidentTypeRep typeService;
     private final RuleRepository ruleService;
 
-    private final RuleService ruleService;
-
     @Override
-    public Optional<Accident> create(Accident accident) {
+    public Optional<Accident> create(Accident accident, int typeId, String[] ruleIds) {
+        accident.setType(typeService.findById(typeId).get());
+        accident.setRules(ruleService.findByIds(ruleIds));
         return accidentRep.create(accident);
     }
 
@@ -56,22 +56,6 @@ public class SimpleAccidentService implements AccidentService {
     @Override
     public AccidentType getType(int id) {
         return typeService.findById(id).get();
-    }
-
-    @Override
-    public Set<Rule> getRules() {
-        return ruleService.findAll();
-    }
-
-    @Override
-    public Rule getRule(int id) {
-        return ruleService.findById(id).get();
-    }
-
-    @Override
-    public Accident setRules(Accident accident, String[] ids) {
-        accident.setRules(ruleService.findByIds(ids));
-        return accident;
     }
 
     @Override

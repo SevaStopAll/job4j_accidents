@@ -11,7 +11,7 @@ import java.util.Set;
 
 public interface AccidentService {
 
-    Optional<Accident> create(Accident accident);
+    Optional<Accident> create(Accident accident, int typeId, String[] ruleIds);
 
     boolean update(Accident accident);
 
