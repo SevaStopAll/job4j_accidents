@@ -19,8 +19,4 @@ public interface AccidentRep {
 
     Optional<Accident> findById(int id);
 
-    List<AccidentType> getTypes();
-
-    AccidentType getType(int id);
-
 }

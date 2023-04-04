@@ -6,6 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.accidents.model.Accident;
 import ru.job4j.accidents.service.AccidentService;
+import ru.job4j.accidents.service.AccidentTypeService;
+import ru.job4j.accidents.service.RuleService;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,11 +15,13 @@ import javax.servlet.http.HttpServletRequest;
 @AllArgsConstructor
 public class AccidentController {
     private final AccidentService accidents;
+    private final RuleService rules;
+    private final AccidentTypeService accidentsTypes;
 
     @GetMapping("/createAccident")
     public String viewCreateAccident(Model model) {
-        model.addAttribute("types", accidents.getTypes());
-        model.addAttribute("rules", accidents.getRules());
+        model.addAttribute("types", accidentsTypes.findAll());
+        model.addAttribute("rules", rules.findAll());
         return "accidents/createAccident";
     }
 

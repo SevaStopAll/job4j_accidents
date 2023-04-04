@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import ru.job4j.accidents.model.Accident;
 import ru.job4j.accidents.model.AccidentType;
+import ru.job4j.accidents.model.Rule;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -17,17 +18,16 @@ public class AccidentMem implements AccidentRep {
     private Map<Integer, Accident> accidents = new ConcurrentHashMap<>();
     private final AtomicInteger nextId = new AtomicInteger(0);
     private static final Logger LOG = LoggerFactory.getLogger(AccidentMem.class);
-    private final AccidentTypeRep types = new AccidentTypeMem();
-    private final RuleRepository rules = new RuleMem();
 
     private AccidentMem() {
         Accident accident1 = new Accident();
         accident1.setName("Accident");
         accident1.setAddress("Marks, Lenina st.");
         accident1.setText("A drunk man sleeps in his car");
-        accident1.setType(types.findById(1).get());
-        accident1.setRules(rules.findAll());
-        create(accident1);
+        accident1.setType(new AccidentType(1, "Две машины"));
+        accident1.setRules(Set.of(new Rule(1, "Статья. 1"),
+                        new Rule(2, "Статья. 2"), new Rule(3, "Статья. 3")));
+                create(accident1);
     }
 
     @Override
@@ -60,13 +60,4 @@ public class AccidentMem implements AccidentRep {
         return Optional.ofNullable(accidents.get(id));
     }
 
-    @Override
-    public List<AccidentType> getTypes() {
-        return types.findAll().stream().toList();
-    }
-
-    @Override
-    public AccidentType getType(int id) {
-        return types.findById(id).get();
-    }
 }
