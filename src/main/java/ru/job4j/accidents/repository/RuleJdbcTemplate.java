@@ -31,7 +31,8 @@ public class RuleJdbcTemplate implements RuleRepository {
                     Rule rule = new Rule();
                     rule.setName(resultSet.getString("name"));
                     return rule;
-                });
+                },
+                id);
         return Optional.ofNullable(result);
     }
 

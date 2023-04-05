@@ -1,1 +1,0 @@
-insert into accidents(name) values('test');

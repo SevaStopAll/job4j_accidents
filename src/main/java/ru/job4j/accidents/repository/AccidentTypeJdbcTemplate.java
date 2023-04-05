@@ -38,13 +38,14 @@ public class AccidentTypeJdbcTemplate implements AccidentTypeRep {
     }
 
     @Override
-    public Optional<AccidentType> findById(int id) {!!!!!!
-        !!!!!!!!!!!!AccidentType result = jdbc.queryForObject("select name from accident_types where id = ?",!!!!!!!!!!!
+    public Optional<AccidentType> findById(int id) {
+        AccidentType result = jdbc.queryForObject("select name from accident_types where id = ?",
                 (resultSet, rowNum) -> {
                     AccidentType type = new AccidentType();
                     type.setName(resultSet.getString("name"));
                     return type;
-                });
+                },
+                id);
         return Optional.ofNullable(result);
     }
 

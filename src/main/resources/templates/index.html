@@ -42,10 +42,10 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Название</th>
-                   <!-- <th scope="col">Описание</th>
+                   <th scope="col">Описание</th>
                     <th scope="col">Адрес</th>
                     <th scope="col">Тип аварии</th>
-                    <th scope="col">Статьи нарушения</th>-->
+                    <th scope="col">Статьи нарушения</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -53,10 +53,10 @@
                     <td th:text="${accident.id}"/>
                     <td><a th:text="${accident.name}"
                            th:href="@{|/editAccident?id=${accident.id}|}"></a>
-                    <!--<td th:text="${accident.text}"/>
+                    <td th:text="${accident.text}"/>
                     <td th:text="${accident.address}"/>
                     <td th:text="${accident.type.name}"/>
-                    <td th:each="rule : ${accident.rules}" th:text="${rule.name}"/>-->
+                    <td th:each="rule : ${accident.rules}" th:text="${rule.name}"/>
                 </tr>
                 </tbody>
             </table>
