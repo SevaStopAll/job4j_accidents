@@ -45,7 +45,7 @@ public class RuleMem implements RuleRepository {
     }
 
     @Override
-    public Set<Rule> findAll() {
-        return new HashSet<>(rules.values());
+    public List<Rule> findAll() {
+        return new ArrayList<>(rules.values());
     }
 }

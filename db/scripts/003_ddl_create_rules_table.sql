@@ -1,4 +1,4 @@
-create table accident_types(
+create table rules(
     id serial primary key,
     name text
 );

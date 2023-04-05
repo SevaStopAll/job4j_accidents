@@ -65,7 +65,7 @@ public class SimpleAccidentService implements AccidentService {
     }
 
     @Override
-    public Set<Rule> getRules() {
+    public List<Rule> getRules() {
         return ruleService.findAll();
     }
 
