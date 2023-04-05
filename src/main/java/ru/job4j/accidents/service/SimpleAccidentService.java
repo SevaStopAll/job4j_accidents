@@ -5,9 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.job4j.accidents.model.Accident;
 import ru.job4j.accidents.model.AccidentType;
 import ru.job4j.accidents.model.Rule;
-import ru.job4j.accidents.repository.AccidentJdbcTemplate;
-import ru.job4j.accidents.repository.AccidentTypeRep;
-import ru.job4j.accidents.repository.RuleRepository;
+import ru.job4j.accidents.repository.*;
 
 import java.util.Collection;
 import java.util.List;
@@ -18,18 +16,28 @@ import java.util.Set;
 @AllArgsConstructor
 public class SimpleAccidentService implements AccidentService {
     private final AccidentJdbcTemplate accidentRep;
-    private final AccidentTypeRep typeService;
-    private final RuleRepository ruleService;
+    private final AccidentTypeJdbcTemplate typeService;
+    private final RuleJdbcTemplate ruleService;
 
     @Override
     public Optional<Accident> create(Accident accident, int typeId, String[] ruleIds) {
         accident.setType(typeService.findById(typeId).get());
+        accident.getType().setId(typeId);
         accident.setRules(ruleService.findByIds(ruleIds));
+        for (int i = 0; i < accident.getRules().size(); i++) {
+            accident.getRules().get(i).setId(Integer.parseInt(ruleIds[i]));
+        }
         return accidentRep.create(accident);
     }
 
     @Override
-    public boolean update(Accident accident) {
+    public boolean update(Accident accident, int typeId, String[] ruleIds) {
+        accident.setType(typeService.findById(typeId).get());
+        accident.getType().setId(typeId);
+        accident.setRules(ruleService.findByIds(ruleIds));
+        for (int i = 0; i < accident.getRules().size(); i++) {
+            accident.getRules().get(i).setId(Integer.parseInt(ruleIds[i]));
+        }
         return accidentRep.update(accident);
     }
 

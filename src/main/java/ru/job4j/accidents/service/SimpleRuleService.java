@@ -25,7 +25,7 @@ public class SimpleRuleService implements RuleService {
     }
 
     @Override
-    public Set<Rule> findByIds(String[] ids) {
+    public List<Rule> findByIds(String[] ids) {
         return repository.findByIds(ids);
     }
 

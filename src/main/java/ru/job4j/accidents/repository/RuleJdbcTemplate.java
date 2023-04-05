@@ -31,13 +31,14 @@ public class RuleJdbcTemplate implements RuleRepository {
                     Rule rule = new Rule();
                     rule.setName(resultSet.getString("name"));
                     return rule;
-                });
+                },
+                id);
         return Optional.ofNullable(result);
     }
 
     @Override
-    public Set<Rule> findByIds(String[] ids) {
-        Set<Rule> result = new HashSet<>();
+    public List<Rule> findByIds(String[] ids) {
+        List<Rule> result = new ArrayList<>();
         for (String index : ids) {
             result.add(findById(Integer.parseInt(index)).get());
         }

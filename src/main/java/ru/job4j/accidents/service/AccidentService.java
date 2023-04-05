@@ -13,7 +13,7 @@ public interface AccidentService {
 
     Optional<Accident> create(Accident accident, int typeId, String[] ruleIds);
 
-    boolean update(Accident accident);
+    boolean update(Accident accident, int typeId, String[] ruleIds);
 
     boolean delete(int id);
 
