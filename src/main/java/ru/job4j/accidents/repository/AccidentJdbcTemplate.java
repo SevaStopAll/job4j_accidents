@@ -17,17 +17,16 @@ public class AccidentJdbcTemplate implements AccidentRep {
     private AccidentsExtractor extractor;
     private final JdbcTemplate jdbc;
     private static final String GET_ALL_ACCIDENTS = "select accidents.id, accidents.name, accidents.text,"
-            + " accidents.address, accident_types.name as typeName, rules.name as  ruleName from accidents "
-            + "join accident_types on accident_type_id = accident_types.id "
-            + "join accidents_rules on accidents.id = accidents_rules.accident_id join rules on accidents_rules.rule_id = rules.id;";
+            + " accidents.address, accident_types.name as typeName from accidents "
+            + "join accident_types on accident_type_id = accident_types.id ";
     private static final String INSERT_INTO_ACCIDENTS = "insert into accidents (name, text, address, accident_type_id) values(?, ?, ?, ?)";
     private static final String INSERT_INTO_ACCIDENTS_RULES = "insert into accidents_rules(accident_id, rule_id) "
             + "select accidents.id, ? from accidents "
             + "where accidents.name = ?";
 
     private static final String DELETE_ACCIDENT_RULES = "delete from accidents_rules where accident_id = ?";
-    private static final String UPDATE_ACCIDENT = "update accidents set name = ?, " +
-            "text = ?, address = ?, accident_type_id = ? where id  = ?";
+    private static final String UPDATE_ACCIDENT = "update accidents set name = ?, "
+            + "text = ?, address = ?, accident_type_id = ? where id  = ?";
 
     @Override
     public Optional<Accident> create(Accident accident) {
@@ -72,9 +71,10 @@ public class AccidentJdbcTemplate implements AccidentRep {
     @Override
     public Optional<Accident> findById(int id) {
         Accident result;
-        result = jdbc.queryForObject("select name, text, address from accidents where id = ?",
+        result = jdbc.queryForObject("select id, name, text, address from accidents where id = ?",
                 (resultSet, rowNum) -> {
                     Accident accident = new Accident();
+                    accident.setId(resultSet.getInt("id"));
                     accident.setName(resultSet.getString("name"));
                     accident.setText(resultSet.getString("text"));
                     accident.setAddress(resultSet.getString("address"));

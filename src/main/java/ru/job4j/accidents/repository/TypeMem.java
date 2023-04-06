@@ -13,12 +13,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
 @AllArgsConstructor
-public class AccidentTypeMem implements AccidentTypeRep {
+public class TypeMem implements TypeRep {
     private Map<Integer, AccidentType> types = new ConcurrentHashMap<>();
     private final AtomicInteger nextId = new AtomicInteger(0);
     private static final Logger LOG = LoggerFactory.getLogger(AccidentMem.class);
 
-    public AccidentTypeMem() {
+    public TypeMem() {
         create(new AccidentType(1, "Две машины"));
         create(new AccidentType(2, "Машина и человек"));
         create(new AccidentType(3, "Машина и велосипед"));

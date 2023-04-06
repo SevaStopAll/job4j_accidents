@@ -26,9 +26,9 @@ public class AccidentsExtractor implements ResultSetExtractor<List> {
             AccidentType type = new AccidentType();
             type.setName(rs.getString("typeName"));
             accident.setType(type);
-            Rule rule = new Rule();
+/*            Rule rule = new Rule();
             rule.setName(rs.getString("ruleName"));
-            accident.setRules(List.of(rule));
+            accident.setRules(List.of(rule));*/
             data.add(accident);
         }
         return data;

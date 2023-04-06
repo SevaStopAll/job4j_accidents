@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 @Primary
 @AllArgsConstructor
-public class AccidentTypeJdbcTemplate implements AccidentTypeRep {
+public class TypeJdbcTemplate implements TypeRep {
     private final JdbcTemplate jdbc;
 
     @Override

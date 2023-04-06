@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import ru.job4j.accidents.service.SimpleAccidentService;
 
-
 @Controller
 @AllArgsConstructor
 public class IndexController {
@@ -16,6 +15,7 @@ public class IndexController {
     public String getIndex(Model model) {
         model.addAttribute("user", "Petr Arsentev");
         model.addAttribute("accidents", accidentService.findAll());
+
         return "index";
     }
 }

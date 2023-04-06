@@ -10,13 +10,12 @@ import ru.job4j.accidents.repository.*;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 @AllArgsConstructor
 public class SimpleAccidentService implements AccidentService {
     private final AccidentJdbcTemplate accidentRep;
-    private final AccidentTypeJdbcTemplate typeService;
+    private final TypeJdbcTemplate typeService;
     private final RuleJdbcTemplate ruleService;
 
     @Override
@@ -48,7 +47,11 @@ public class SimpleAccidentService implements AccidentService {
 
     @Override
     public Collection<Accident> findAll() {
-        return accidentRep.findAll();
+        Collection<Accident> accidents = accidentRep.findAll();
+        for (Accident accident : accidents) {
+            accident.setRules(ruleService.findByAccidentId(accident.getId()));
+        }
+        return accidents;
     }
 
     @Override
@@ -87,5 +90,4 @@ public class SimpleAccidentService implements AccidentService {
         accident.setRules(ruleService.findByIds(ids));
         return accident;
     }
-
 }

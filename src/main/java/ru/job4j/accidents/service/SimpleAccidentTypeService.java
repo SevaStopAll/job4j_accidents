@@ -3,7 +3,7 @@ package ru.job4j.accidents.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.accidents.model.AccidentType;
-import ru.job4j.accidents.repository.AccidentTypeRep;
+import ru.job4j.accidents.repository.TypeRep;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -11,7 +11,7 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class SimpleAccidentTypeService implements AccidentTypeService {
-    AccidentTypeRep typeRep;
+    TypeRep typeRep;
 
     @Override
     public Optional<AccidentType> create(AccidentType type) {
