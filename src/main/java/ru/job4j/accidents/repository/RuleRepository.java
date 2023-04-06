@@ -12,7 +12,7 @@ public interface RuleRepository {
 
     Optional<Rule> findById(int id);
 
-    Set<Rule> findByIds(String[] ids);
+    List<Rule> findByIds(String[] ids);
 
     List<Rule> findAll();
 }

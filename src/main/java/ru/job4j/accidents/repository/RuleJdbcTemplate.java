@@ -37,8 +37,8 @@ public class RuleJdbcTemplate implements RuleRepository {
     }
 
     @Override
-    public Set<Rule> findByIds(String[] ids) {
-        Set<Rule> result = new HashSet<>();
+    public List<Rule> findByIds(String[] ids) {
+        List<Rule> result = new ArrayList<>();
         for (String index : ids) {
             result.add(findById(Integer.parseInt(index)).get());
         }

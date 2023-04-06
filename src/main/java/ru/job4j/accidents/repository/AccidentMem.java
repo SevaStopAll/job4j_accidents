@@ -25,7 +25,7 @@ public class AccidentMem implements AccidentRep {
         accident1.setAddress("Marks, Lenina st.");
         accident1.setText("A drunk man sleeps in his car");
         accident1.setType(new AccidentType(1, "Две машины"));
-        accident1.setRules(Set.of(new Rule(1, "Статья. 1"),
+        accident1.setRules(List.of(new Rule(1, "Статья. 1"),
                         new Rule(2, "Статья. 2"), new Rule(3, "Статья. 3")));
                 create(accident1);
     }

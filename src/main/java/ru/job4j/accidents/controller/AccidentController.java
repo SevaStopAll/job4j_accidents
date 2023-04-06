@@ -40,12 +40,17 @@ public class AccidentController {
             return "errors/404";
         }
         model.addAttribute("accident", accidentOptional.get());
+        model.addAttribute("types", accidentsTypes.findAll());
+        model.addAttribute("rules", rules.findAll());
         return "/accidents/editAccident";
     }
 
     @PostMapping("/update")
-    public String update(@ModelAttribute Accident accident) {
-        accidents.update(accident);
+    public String update(@ModelAttribute Accident accident, @RequestParam("type.id") int id, HttpServletRequest req) {
+        int accidentId = Integer.parseInt(req.getParameterValues("id")[0]);
+        accident.setId(accidentId);
+        String[] ids = req.getParameterValues("rIds");
+        accidents.update(accident, id, ids);
         return "redirect:/index";
     }
 }
