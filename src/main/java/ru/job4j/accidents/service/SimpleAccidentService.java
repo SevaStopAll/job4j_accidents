@@ -3,22 +3,26 @@ package ru.job4j.accidents.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.accidents.model.Accident;
-import ru.job4j.accidents.model.AccidentType;
-import ru.job4j.accidents.model.Rule;
 import ru.job4j.accidents.repository.*;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class SimpleAccidentService implements AccidentService {
-    private final AccidentHibernate accidentRep;
+public class SimpleAccidentService {
+    private final AccidentRepository accidentRepository;
     private final TypeJdbcTemplate typeService;
     private final RuleJdbcTemplate ruleService;
 
-    @Override
+
+    public void create(Accident accident) {
+        accidentRepository.save(accident);
+    }
+
+    public List<Accident> getAll() {
+        return (List<Accident>) accidentRepository.findAll();
+    }
+   /* @Override
     public Optional<Accident> create(Accident accident, int typeId, String[] ruleIds) {
         accident.setType(typeService.findById(typeId).get());
         accident.getType().setId(typeId);
@@ -89,5 +93,5 @@ public class SimpleAccidentService implements AccidentService {
     public Accident setRules(Accident accident, String[] ids) {
         accident.setRules(ruleService.findByIds(ids));
         return accident;
-    }
+    }*/
 }
