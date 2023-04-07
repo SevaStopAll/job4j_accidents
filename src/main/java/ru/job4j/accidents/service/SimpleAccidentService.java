@@ -14,7 +14,7 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class SimpleAccidentService implements AccidentService {
-    private final AccidentJdbcTemplate accidentRep;
+    private final AccidentHibernate accidentRep;
     private final TypeJdbcTemplate typeService;
     private final RuleJdbcTemplate ruleService;
 
