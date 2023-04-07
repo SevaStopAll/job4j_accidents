@@ -26,9 +26,9 @@ public class AccidentController {
     }
 
     @PostMapping("/saveAccident")
-    public String save(@ModelAttribute Accident accident, @RequestParam("type.id") int id, HttpServletRequest req) {
+    public String save(@ModelAttribute Accident accident, HttpServletRequest req) {
         String[] ids = req.getParameterValues("rIds");
-        accidents.create(accident, id, ids);
+        accidents.create(accident, ids);
         return "redirect:/index";
     }
 
@@ -46,10 +46,9 @@ public class AccidentController {
     }
 
     @PostMapping("/update")
-    public String update(@ModelAttribute Accident accident, @RequestParam("type.id") int id, HttpServletRequest req) {
-        int acId = accident.getId();
+    public String update(@ModelAttribute Accident accident, HttpServletRequest req) {
         String[] ids = req.getParameterValues("rIds");
-        accidents.update(accident, id, ids);
+        accidents.create(accident, ids);
         return "redirect:/index";
     }
 }
