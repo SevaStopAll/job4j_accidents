@@ -2,7 +2,7 @@
 
 ## In this app I want to create an accidents report system with role division: users and intendants. 
 
-### Stack: Java, Spring, Hibernate.
+### Stack: Java, Spring (Data, Security), Hibernate.
 
 ### How to launch 
 
