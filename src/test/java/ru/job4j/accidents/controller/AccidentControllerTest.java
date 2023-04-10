@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,11 +64,52 @@ class AccidentControllerTest {
     @WithMockUser
     public void shouldReturnDefaultMessage() throws Exception {
         this.mockMvc.perform(post("/accidents/create")
-                        .param("name","Куплю ладу-грант. Дорого."))
+                        .param("name","Test")
+                        .param("text", "Test")
+                        .param("address", "Test")
+                        .param("type.id", "1")
+                )
                 .andDo(print())
                 .andExpect(status().is3xxRedirection());
         ArgumentCaptor<Accident> accident = ArgumentCaptor.forClass(Accident.class);
-        verify(accidents).create(accident.capture(), accident.capture());
-        /*assertThat(accident.getValue().getName(), is("Куплю ладу-грант. Дорого."));*/
+        verify(accidents).create(accident.capture(), new String[] {"1"});
+        assertThat(accident.getValue().getName()).isEqualTo("Test");
     }
+
+    /*@Test
+    @WithMockUser
+    public void whenSaveAccidentReturnErrorPage() throws Exception {
+        this.mockMvc.perform(post("/saveAccident")
+                        .param("name", "Name")
+                        .param("text", "Text")
+                        .param("address", "Address")
+                        .param("type.id", "1")
+                        .param("rIds", "2"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(view().name("errorPage"))
+                .andExpect(model().attribute("message", "Инцидент не создан!"));
+        ArgumentCaptor<Accident> argumentCaptor = ArgumentCaptor.forClass(Accident.class);
+        verify(accidentService).create(argumentCaptor.capture());
+        assertThat(argumentCaptor.getValue().getName()).isEqualTo("Name");
+    }
+
+    @Test
+    @WithMockUser
+    public void whenUpdateAccidentReturnErrorPage() throws Exception {
+        this.mockMvc.perform(post("/updateAccident")
+                        .param("id", "4")
+                        .param("name", "new Name")
+                        .param("text", "Text")
+                        .param("address", "Address")
+                        .param("type.id", "1")
+                        .param("rIds", "2"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(view().name("errorPage"))
+                .andExpect(model().attribute("message", "Инцидент не обновлен!"));
+        ArgumentCaptor<Accident> argumentCaptor = ArgumentCaptor.forClass(Accident.class);
+        verify(accidentService).update(argumentCaptor.capture());
+        assertThat(argumentCaptor.getValue().getName()).isEqualTo("new Name");
+    }*/
 }

@@ -26,4 +26,18 @@ class RegControlTest {
         this.mockMvc.perform(get("/reg"))
                 .andExpect(view().name("reg"));
     }
+
+    /*@Test
+    @WithMockUser
+    public void whenRegSave() throws Exception {
+        this.mockMvc.perform(post("/reg")
+                        .param("username", "Petr")
+                        .param("password", "123"))
+                .andDo(print())
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/login"));
+        ArgumentCaptor<User> argumentCaptor = ArgumentCaptor.forClass(User.class);
+        verify(userRepository).save(argumentCaptor.capture());
+        assertThat(argumentCaptor.getValue().getUsername()).isEqualTo("Petr");
+    }*/
 }
