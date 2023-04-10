@@ -62,12 +62,12 @@ class AccidentControllerTest {
     @Test
     @WithMockUser
     public void shouldReturnDefaultMessage() throws Exception {
-        this.mockMvc.perform(post("/post/create")
+        this.mockMvc.perform(post("/accidents/create")
                         .param("name","Куплю ладу-грант. Дорого."))
                 .andDo(print())
                 .andExpect(status().is3xxRedirection());
         ArgumentCaptor<Accident> accident = ArgumentCaptor.forClass(Accident.class);
-        verify(accidents).create(accident.capture());
+        verify(accidents).create(accident.capture(), accident.capture());
         /*assertThat(accident.getValue().getName(), is("Куплю ладу-грант. Дорого."));*/
     }
 }
