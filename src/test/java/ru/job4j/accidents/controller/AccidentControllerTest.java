@@ -1,13 +1,14 @@
 package ru.job4j.accidents.controller;
 
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,22 +53,17 @@ class AccidentControllerTest {
 
     @Test
     @WithMockUser
-    public void whenEditAccident() throws Exception {
-        this.mockMvc.perform(get("/editAccident/?id=1"))
+    public void whenSaveAccident() throws Exception {
+        ArgumentCaptor<Accident> argumentCaptor = ArgumentCaptor.forClass(Accident.class);
+        this.mockMvc.perform(post("/saveAccident")
+                        .param("name", "Drunk driver")
+                        .param("text", "A drunk man is in black Toyota")
+                        .param("address", "Lenina 33")
+                        .param("type.id", "1")
+                        .param("rIds", "2"))
                 .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(view().name("/accidents/editAccident"));
-    }
-
-    @Test
-    @WithMockUser
-    public void shouldReturnDefaultMessage() throws Exception {
-        this.mockMvc.perform(post("/accidents/create")
-                        .param("name","Куплю ладу-грант. Дорого."))
-                .andDo(print())
-                .andExpect(status().is3xxRedirection());
-        ArgumentCaptor<Accident> accident = ArgumentCaptor.forClass(Accident.class);
-        verify(accidents).create(accident.capture(), accident.capture());
-        /*assertThat(accident.getValue().getName(), is("Куплю ладу-грант. Дорого."));*/
+                .andExpect(redirectedUrl("/index"));
+        verify(accidents).create(argumentCaptor.capture(), eq(new String[]{"2"}));
+        assertThat(argumentCaptor.getValue().getName()).isEqualTo("Drunk driver");
     }
 }
