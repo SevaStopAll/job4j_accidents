@@ -28,6 +28,9 @@ public class AccidentJdbcTemplate implements AccidentRep {
     private static final String UPDATE_ACCIDENT = "update accidents set name = ?, "
             + "text = ?, address = ?, accident_type_id = ? where id  = ?";
 
+    private static final String DELETE_ACCIDENT = "delete from accidents where id = ?";
+    private static final String FIND_BY_ID = "select id, name, text, address from accidents where id = ?";
+
     @Override
     public Optional<Accident> create(Accident accident) {
         jdbc.update(INSERT_INTO_ACCIDENTS,
@@ -64,14 +67,14 @@ public class AccidentJdbcTemplate implements AccidentRep {
     @Override
     public boolean delete(int id) {
         return jdbc.update(
-                        "delete from accidents where id = ?",
+                DELETE_ACCIDENT,
                 Long.valueOf(id)) > 0;
     }
 
     @Override
     public Optional<Accident> findById(int id) {
         Accident result;
-        result = jdbc.queryForObject("select id, name, text, address from accidents where id = ?",
+        result = jdbc.queryForObject(FIND_BY_ID,
                 (resultSet, rowNum) -> {
                     Accident accident = new Accident();
                     accident.setId(resultSet.getInt("id"));

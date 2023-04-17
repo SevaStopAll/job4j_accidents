@@ -3,10 +3,8 @@ package ru.job4j.accidents.repository;
 import lombok.AllArgsConstructor;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
-import ru.job4j.accidents.model.AccidentType;
 import ru.job4j.accidents.model.Rule;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -19,6 +17,8 @@ public class RuleHibernate implements RuleRepository {
     private static final String DELETE = "DELETE FROM Rule WHERE id = :fId";
     private static final String FIND_ALL = "FROM Rule";
     private static final String FIND_BY_ID = "FROM Rule WHERE id = :fId";
+
+    private static final String FIND_BY_IDS = "from Rule where id IN (:fValues)";
 
     @Override
     public Optional<Rule> create(Rule rule) {
@@ -36,7 +36,7 @@ public class RuleHibernate implements RuleRepository {
 
     @Override
     public List<Rule> findByIds(String[] ids) {
-        return crudRepository.query("from Rule where id IN (:fValues)", Rule.class, Map.of("fValues", ids));
+        return crudRepository.query(FIND_BY_IDS, Rule.class, Map.of("fValues", ids));
     }
 
     @Override
